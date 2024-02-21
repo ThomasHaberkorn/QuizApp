@@ -90,43 +90,4 @@ function checkAnswer(selection) {
             .getElementById(selection)
             .parentNode.classList.add("bg-danger");
     }
-
-    // let qNum = currentQuestion;
-
-    // if (selection == "answer_1") {
-    //     let a = 1;
-    //     if (a == questions[qNum]["right_answer"]) {
-    //         document.getElementById("quizCard1").style.backgroundColor =
-    //             "green";
-    //     } else {
-    //         document.getElementById("quizCard1").style.backgroundColor = "red";
-    //     }
-    // }
-    // if (selection == "answer_2") {
-    //     let a = 2;
-    //     if (a == questions[qNum]["right_answer"]) {
-    //         document.getElementById("quizCard2").style.backgroundColor =
-    //             "green";
-    //     } else {
-    //         document.getElementById("quizCard2").style.backgroundColor = "red";
-    //     }
-    // }
-    // if (selection == "answer_3") {
-    //     let a = 3;
-    //     if (a == questions[qNum]["right_answer"]) {
-    //         document.getElementById("quizCard3").style.backgroundColor =
-    //             "green";
-    //     } else {
-    //         document.getElementById("quizCard3").style.backgroundColor = "red";
-    //     }
-    // }
-    // if (selection == "answer_4") {
-    //     let a = 4;
-    //     if (a == questions[qNum]["right_answer"]) {
-    //         document.getElementById("quizCard4").style.backgroundColor =
-    //             "green";
-    //     } else {
-    //         document.getElementById("quizCard4").style.backgroundColor = "red";
-    //     }
-    // }
 }
