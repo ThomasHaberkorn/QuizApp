@@ -80,6 +80,9 @@ function showQuestion() {
 }
 
 function checkAnswer(selection) {
+    const success = new Audio("./src/success.mp3");
+    const wrong = new Audio("./src/wrong.mp3");
+
     let question = questions[currentQuestion];
     let qNum = +selection.slice(-1);
 
@@ -90,6 +93,7 @@ function checkAnswer(selection) {
             .getElementById(selection)
             .parentNode.classList.add("bg-success");
         answers.push(true);
+        success.play();
     } else {
         document
             .getElementById(selection)
@@ -98,6 +102,7 @@ function checkAnswer(selection) {
             .getElementById(idOfRightAnswer)
             .parentNode.classList.add("bg-success");
         answers.push(false);
+        wrong.play();
     }
     document.getElementById("next-Button").disabled = false;
 }
@@ -105,6 +110,7 @@ function checkAnswer(selection) {
 function nextQuestion() {
     currentQuestion++;
     let questionNumber = currentQuestion + 1;
+    const fanfare = new Audio("./src/fanfare.mp3");
 
     if (currentQuestion < questions.length) {
         clearQuestion();
@@ -115,6 +121,7 @@ function nextQuestion() {
         document.getElementById("endScreen").style = "";
         document.getElementById("quiz-Card").style = "display: none";
         showResult();
+        fanfare.play();
     }
     showProgress();
 }
