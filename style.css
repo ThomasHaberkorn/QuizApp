@@ -31,3 +31,15 @@ body {
 .bg-danger {
     color: white !important;
 }
+
+.endText {
+    margin-top: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.resetButton {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}

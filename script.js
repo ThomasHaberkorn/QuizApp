@@ -57,11 +57,13 @@ let questions = [
     },
 ];
 
+let answers = [];
 let currentQuestion = 0;
 
 function init() {
     initNumberField();
     showQuestion();
+    showProgress();
 }
 
 function initNumberField() {
@@ -80,14 +82,103 @@ function showQuestion() {
 function checkAnswer(selection) {
     let question = questions[currentQuestion];
     let qNum = +selection.slice(-1);
+
+    let idOfRightAnswer = `answer_${question["right_answer"]}`;
+
     if (qNum == question["right_answer"]) {
         document
             .getElementById(selection)
             .parentNode.classList.add("bg-success");
-        ("green");
+        answers.push(true);
     } else {
         document
             .getElementById(selection)
             .parentNode.classList.add("bg-danger");
+        document
+            .getElementById(idOfRightAnswer)
+            .parentNode.classList.add("bg-success");
+        answers.push(false);
     }
+    document.getElementById("next-Button").disabled = false;
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    let questionNumber = currentQuestion + 1;
+
+    if (currentQuestion < questions.length) {
+        clearQuestion();
+        document.getElementById("questionNumber").innerHTML = questionNumber;
+        showQuestion();
+        document.getElementById("next-Button").disabled = true;
+    } else {
+        document.getElementById("endScreen").style = "";
+        document.getElementById("quiz-Card").style = "display: none";
+        showResult();
+    }
+    showProgress();
+}
+
+function showProgress() {
+    let progress = (currentQuestion / questions.length) * 100;
+
+    document.getElementById("progress-bar").style = `width: ${progress}%`;
+    document.getElementById("progress-bar").innerHTML = `${progress.toFixed(
+        0
+    )} %`;
+}
+
+function clearQuestion() {
+    document
+        .getElementById("answer_1")
+        .parentNode.classList.remove("bg-danger");
+    document
+        .getElementById("answer_2")
+        .parentNode.classList.remove("bg-danger");
+    document
+        .getElementById("answer_3")
+        .parentNode.classList.remove("bg-danger");
+    document
+        .getElementById("answer_4")
+        .parentNode.classList.remove("bg-danger");
+    document
+        .getElementById("answer_1")
+        .parentNode.classList.remove("bg-success");
+    document
+        .getElementById("answer_2")
+        .parentNode.classList.remove("bg-success");
+    document
+        .getElementById("answer_3")
+        .parentNode.classList.remove("bg-success");
+    document
+        .getElementById("answer_4")
+        .parentNode.classList.remove("bg-success");
+}
+
+function showResult() {
+    let good = 0;
+
+    for (i = 0; i < answers.length; i++) {
+        if (answers[i] == true) {
+            good++;
+        }
+    }
+    document.getElementById("rightQuestion").innerHTML = good;
+    document.getElementById("allQuestion").innerHTML = answers.length;
+    document.getElementById("card-img-top").src = "./img/trophy.bmp";
+}
+
+function clearAnswers() {
+    answers.splice(0, answers.length);
+}
+
+function reset() {
+    currentQuestion = 0; // setzt aktuelle Frage auf 0
+    document.getElementById("endScreen").style = "display: none"; // EndScreen ausblenden
+    document.getElementById("quiz-Card").style = ""; // Quiz Karte wieder anzeigen
+    document.getElementById("card-img-top").src = "./img/bgrimg.bmp"; // Titelbild wieder herstellen
+    document.getElementById("questionNumber").innerHTML = 1; // Setzt den Inhalt der Anzeige der aktuellen Frage auf 1
+    clearAnswers(); // löscht das Hilfsarray answers
+    clearQuestion(); // setzt alle Farbmarkierungen zurück
+    init(); // Spiel wird neu initialisiert
 }
